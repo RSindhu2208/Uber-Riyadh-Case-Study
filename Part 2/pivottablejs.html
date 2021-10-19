@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>PivotTable.js</title>
+
+        <!-- external libs from cdnjs -->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.19.0/pivot.min.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.19.0/pivot.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.19.0/d3_renderers.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.19.0/c3_renderers.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.19.0/export_renderers.min.js"></script>
+
+        <style>
+            body {font-family: Verdana;}
+            .node {
+              border: solid 1px white;
+              font: 10px sans-serif;
+              line-height: 12px;
+              overflow: hidden;
+              position: absolute;
+              text-indent: 2px;
+            }
+            .c3-line, .c3-focused {stroke-width: 3px !important;}
+            .c3-bar {stroke: white !important; stroke-width: 1;}
+            .c3 text { font-size: 12px; color: grey;}
+            .tick line {stroke: white;}
+            .c3-axis path {stroke: grey;}
+            .c3-circle { opacity: 1 !important; }
+            .c3-xgrid-focus {visibility: hidden !important;}
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript">
+            $(function(){
+                if(window.location != window.parent.location)
+                    $("<a>", {target:"_blank", href:""})
+                        .text("[pop out]").prependTo($("body"));
+
+                $("#output").pivotUI(
+                    $.csv.toArrays($("#output").text()),
+                    $.extend({
+                        renderers: $.extend(
+                            $.pivotUtilities.renderers,
+                            $.pivotUtilities.c3_renderers,
+                            $.pivotUtilities.d3_renderers,
+                            $.pivotUtilities.export_renderers
+                            ),
+                        hiddenAttributes: [""]
+                    }, {})
+                ).show();
+             });
+        </script>
+        <div id="output" style="display: none;">request_type,vehicle_type,trip_status,city_id,trip_fare_usd
+Black,Black Car,completed,44,573.0284105520002
+Black,Black Car,rider_canceled,50,10.665955605
+Black,UberVIP,completed,8,43.751970059
+Black,UberVIP,rider_canceled,9,0.0
+Black,UberX,completed,6293,37811.06687101608
+Black,UberX,driver_canceled,206,266.919564849
+Black,UberX,fare_split,2,14.342657977
+Black,UberX,rider_canceled,1998,253.31875838700014
+Black,UberX,unfulfilled,2,0.0
+Black,uberXL,completed,46,485.8907626460001
+Black,uberXL,driver_canceled,1,0.0
+Black,uberXL,rider_canceled,33,6.399573362
+UberX,Black Car,completed,258,3778.1901633740003
+UberX,Black Car,driver_canceled,13,31.999287546999998
+UberX,Black Car,fare_split,1,12.11233269
+UberX,Black Car,rider_canceled,304,21.332471513
+UberX,Black Car,unfulfilled,1,0.0
+UberX,UberVIP,completed,133,709.1164200940001
+UberX,UberVIP,driver_canceled,1,0.0
+UberX,UberVIP,rider_canceled,106,9.332600171
+UberX,UberVIP,unfulfilled,1,0.0
+UberX,UberX,completed,20694,120941.79878621071
+UberX,UberX,driver_canceled,773,804.492176299999
+UberX,UberX,fare_split,4,26.033126408999998
+UberX,UberX,rider_canceled,5784,636.7645748809986
+UberX,UberX,unfulfilled,17,0.0
+UberX,uberXL,completed,903,9889.325490699022
+UberX,uberXL,driver_canceled,38,73.59610230599999
+UberX,uberXL,fare_split,1,17.83952428
+UberX,uberXL,rider_canceled,569,89.59506725499998
+UberX,uberXL,unfulfilled,3,0.0
+</div>
+    </body>
+</html>
